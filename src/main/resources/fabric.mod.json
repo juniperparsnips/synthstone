@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "synthstone",
+  "version": "${version}",
+
+  "name": "Synthstone",
+  "description": "A verilog synthesizer for generating zero-tick based redstone circuits.",
+  "authors": [
+    "Juniper Parsons (juniperparsnips)"
+  ],
+  "contact": {
+    "homepage": "https://juniperparsnips.com/",
+    "sources": "https://github.com/parsons20/synthstone"
+  },
+
+  "license": "MIT",
+  "icon": "assets/synthstone/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.juniperparsnips.synthstone.Synthstone"
+    ]
+  },
+  "mixins": [
+    "synthstone.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
