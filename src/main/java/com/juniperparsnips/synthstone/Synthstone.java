@@ -1,6 +1,9 @@
 package com.juniperparsnips.synthstone;
 
+import com.juniperparsnips.synthstone.command.PlaceStructureCommand;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.minecraft.server.command.CommandManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,5 +20,10 @@ public class Synthstone implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+
+		CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
+			PlaceStructureCommand.register(dispatcher);
+		}));
+
 	}
 }
