@@ -17,7 +17,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.Optional;
 import java.util.Random;
 
 import static com.juniperparsnips.synthstone.command.arguments.BlockMirrorArgumentType.blockMirror;
@@ -54,12 +53,11 @@ public class PlaceStructureCommand {
             boolean suppressUpdates
     ) throws CommandSyntaxException {
         StructureManager sm = c.getSource().getServer().getStructureManager();
-        Optional<Structure> optional;
+        Structure structure;
         try {
             Identifier id = getIdentifier(c, "structure");
-            optional = sm.getStructure(id);
-        } catch (InvalidIdentifierException e) {
-            Synthstone.LOGGER.error("could not get structure");
+            structure = sm.getStructure(id).get();
+        } catch (Exception e) {
             throw new SimpleCommandExceptionType(new TranslatableText("synthstone.commands.placeStructure.invalid.id")).create();
         }
 
@@ -70,7 +68,6 @@ public class PlaceStructureCommand {
         placementData.setRotation(rotation);
 
         BlockPos pos = getBlockPos(c, "pos");
-        Structure structure = optional.get();
         structure.place(c.getSource().getWorld(), pos, pos, placementData, new Random(Util.getMeasuringTimeMs()), 3);
 
         ((IWorldUpdateSuppressor) c.getSource().getWorld()).setShouldPreventBlockUpdates(false);
