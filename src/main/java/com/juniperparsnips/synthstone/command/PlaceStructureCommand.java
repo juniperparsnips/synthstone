@@ -20,6 +20,10 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Optional;
 import java.util.Random;
 
+import static com.juniperparsnips.synthstone.command.arguments.BlockMirrorArgumentType.blockMirror;
+import static com.juniperparsnips.synthstone.command.arguments.BlockMirrorArgumentType.getBlockMirror;
+import static com.juniperparsnips.synthstone.command.arguments.BlockRotationArgumentType.blockRotation;
+import static com.juniperparsnips.synthstone.command.arguments.BlockRotationArgumentType.getBlockRotation;
 import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static net.minecraft.command.argument.BlockPosArgumentType.blockPos;
@@ -34,9 +38,12 @@ public class PlaceStructureCommand {
         LiteralArgumentBuilder<ServerCommandSource> argumentBuilder = CommandManager.literal("placestructure")
                 .requires((source) -> source.hasPermissionLevel(2))
                 .then(argument("pos", blockPos()).then(argument("structure", identifier())
-                    .executes((c) -> placeStructure(c, BlockMirror.NONE, BlockRotation.NONE, false))
+                        .executes((c) -> placeStructure(c, BlockMirror.NONE, BlockRotation.NONE, false))
                 .then(argument("suppressUpdates", bool())
-                    .executes((c) -> placeStructure(c, BlockMirror.NONE, BlockRotation.NONE, getBool(c, "suppressUpdates"))))));
+                        .executes((c) -> placeStructure(c, BlockMirror.NONE, BlockRotation.NONE, getBool(c, "suppressUpdates")))
+                .then(argument("mirror", blockMirror())
+                .then(argument("rotation", blockRotation())
+                        .executes((c) -> placeStructure(c, getBlockMirror(c, "mirror"), getBlockRotation(c, "rotation"), getBool(c, "suppressUpdates"))))))));
         dispatcher.register(argumentBuilder);
     }
 

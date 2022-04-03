@@ -1,3 +1,5 @@
 {
+  "synthstone.commands.arguments.blockMirror.unknown": "Unknown block mirror type",
+  "synthstone.commands.arguments.blockRotation.unknown": "Unknown block rotation type",
   "synthstone.commands.placeStructure.invalid.id": "The structure is not available"
 }
