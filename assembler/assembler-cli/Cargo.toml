@@ -1,0 +1,15 @@
+[package]
+name = "assembler-cli"
+authors = ["Juniper Parsons <juniperparsnips@gmail.com>"]
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "assembler"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "3.1", features = ["derive"] }
+
+[dependencies.assembler]
+path = "../assembler"

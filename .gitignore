@@ -5,6 +5,10 @@ build/
 out/
 classes/
 
+# rust
+**/target/
+**/Cargo.lock
+
 # eclipse
 
 *.launch
