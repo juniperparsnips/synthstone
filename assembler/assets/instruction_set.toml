@@ -1,0 +1,46 @@
+# List each flag name with an int equal to the number of bits it has and a default.
+# Values are decimal unless otherwise specified.
+[flags]
+alu_op = { bits = 4, default = 0b0000 }
+
+
+[instructions]
+opcode_size = 8
+# Each instruction has:
+# - opcode (opcode_size bits)
+# - type (R or I)
+# - list of flags which must be specified for the instruction, you may leave out "don't cares"
+
+[instructions.noop]
+opcode = 0x00
+type = "R"
+flags = {}
+
+[instructions.lda]
+opcode = 0x01
+type = "R"
+# flags = {}
+
+[instructions.ldb]
+opdocde = 0x02
+type = "R"
+
+[instructions.ldai]
+opcode = 0x03
+type = "I"
+
+[instructions.ldbi]
+opcode = 0x04
+type = "I"
+
+# Set the given register address to reg A + reg B
+#This is an example for how and instruction might look, as I don't know what our exact flags are yet.
+[instructions.add]
+opcode = 0x10
+type = "R"
+flags = { alu_op = 0b0000, reg_write = 0b1 }
+
+[instructions.sub]
+opcode = 0x18
+type = "R"
+flags = { alu_op = 0b1000, reg_write = 0b1 }
