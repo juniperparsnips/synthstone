@@ -1,4 +1,4 @@
-#![feature(str_split_whitespace_as_str)]
+#![feature(str_split_whitespace_remainder)]
 #![feature(string_remove_matches)]
 
 // #![deny(missing_docs)]

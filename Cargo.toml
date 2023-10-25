@@ -1,0 +1,3 @@
+[workspace]
+members = ["assembler", "assembler-cli", "cook-book",]
+resolver = "2"
