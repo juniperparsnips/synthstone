@@ -18,6 +18,17 @@ lazy_static! {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type")]
+/// The non-special automatable types of crafting recipes
+/// Smoker and blast furnace have been left out since they're (in vanilla)
+/// redundant.
+///
+/// Special recipe types like
+/// * firework rockets
+/// * suspicious stew
+/// * decorated pots
+/// * tipped arrows
+/// Have non-standard recipe formats that can't be easily determined by the json
+/// i.e. it's a unique type and is likely hardcoded :(
 pub enum Recipe {
     #[serde(rename = "minecraft:crafting_shapeless")]
     Shapeless(ShapelessCraftingRecipe),
