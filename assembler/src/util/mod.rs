@@ -1,9 +1,11 @@
-use std::{collections::HashMap, fmt::{self, Display}};
+use std::{
+    collections::HashMap,
+    fmt::{self, Display},
+};
 
 use serde::{Deserialize, Serialize};
 
 use crate::{AssemblyError, AssemblyResult};
-
 
 pub mod file_parsing;
 pub mod instruction_parsing;
@@ -12,15 +14,13 @@ pub type Labels = HashMap<String, u8>;
 
 #[derive(Debug, Copy, Clone, PartialEq, Deserialize, Serialize)]
 pub struct U4 {
-    val: usize
+    val: usize,
 }
 
 impl U4 {
     pub fn new(val: usize) -> AssemblyResult<Self> {
         if val < 16 {
-            Ok(Self {
-                val
-            })
+            Ok(Self { val })
         } else {
             Err(AssemblyError::U4Range)
         }
@@ -46,15 +46,13 @@ impl TryFrom<u8> for U4 {
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct U12 {
-    val: usize
+    val: usize,
 }
 
 impl U12 {
     pub fn new(val: usize) -> AssemblyResult<Self> {
         if val < 4096 {
-            Ok(Self {
-                val
-            })
+            Ok(Self { val })
         } else {
             Err(AssemblyError::U12Range)
         }

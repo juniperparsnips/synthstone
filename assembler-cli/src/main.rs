@@ -1,8 +1,7 @@
 use std::{fs, vec::Vec};
 
+use assembler::{util::file_parsing, AssemblyResult};
 use clap::Parser;
-
-use assembler::{AssemblyResult, util::file_parsing};
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -10,7 +9,7 @@ struct CliArgs {
     #[clap(short, long)]
     input_file: String,
     #[clap(short, long)]
-    output_file: String
+    output_file: String,
 }
 
 fn main() -> AssemblyResult<()> {
