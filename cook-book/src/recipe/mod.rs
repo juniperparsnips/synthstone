@@ -12,7 +12,9 @@ mod shapeless_crafting_recipe;
 mod smelting_recipe;
 
 lazy_static! {
-    pub static ref FILLER_ID: ItemID = ItemID("FILLER_ITEM_CHANGE_ME_LATER".to_string());
+    pub static ref FILLER_ID: ItemID = ItemID {
+        item: "FILLER_ITEM_CHANGE_ME_LATER".to_string()
+    };
     pub static ref FILLER_SLOT: RecipeSlot = RecipeSlot(" ".as_bytes()[0]);
 }
 
@@ -39,12 +41,12 @@ pub enum Recipe {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
+// #[serde(rename_all = "lowercase")]
+#[serde(untagged)]
 pub enum RecipeInput {
     Item(ItemID),
     Tag(TagID),
-    // TODO: i haven't even tested a list recipe yet
-    List(Vec<ItemID>),
+    List(InputOptions),
 }
 
 // for mapping tags ands lists to a single item id in storage
@@ -87,12 +89,18 @@ pub trait CraftingRecipe {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(transparent)]
 /// Represents a unique ID of an item (i.e. such that it could be requested from a storage system)
-pub struct ItemID(String);
+pub struct ItemID {
+    item: String,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TagID {}
+pub struct TagID {
+    tag: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct InputOptions(Vec<ItemID>);
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[serde(try_from = "String")]
@@ -115,7 +123,9 @@ impl TryFrom<String> for RecipeSlot {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecipeResult {
+    // todo.... this is being a problem for the list deserialization
     item: ItemID,
+    // maybe item count has to leave an be separate?
     #[serde(default)]
     count: ItemCount,
 }
